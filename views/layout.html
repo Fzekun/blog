@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="/stylesheets/bootstrap-theme.min.css">
+    <style>
+      .list{
+        width:550px;
+        margin:0 auto;
+      }
+      .list{
+          text-align:center;
+      }
+      .list span{
+          color:#428bca;
+      }
+      .dec{
+          text-align: left;
+      }
+      .function{
+          color:#fff;
+          width:100px;
+          line-height: 34px;
+          height:34px;
+          background:#428bca;
+          text-align: center;
+          display:block;
+      }
+      .pages{
+          width:550px;
+          margin:30px auto 0 auto;
+          line-height: 34px;
+          position: relative;
+      }
+      .pages p{
+        text-align: center;
+          width:100%;
+      }
+      .pages a,.pages span{
+          position: absolute;
+          top:0;
+      }
+      .pl{
+         left:0;
+
+      }
+        .pr{
+           right:0;
+        }
+    </style>
+  </head>
+  <body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-md-9">
+                <ul class="nav nav-tabs" role="tablist">
+                  {% if category == '' %}
+                    <li role="presentation" class="active"><a href="/">首页</a></li>
+                  {% else %}
+                      <li role="presentation"><a href="/">首页</a></li>
+                  {% endif %}
+                  {% for cate in categorys %}
+                    {% if category == cate.id %}
+                    <li class="active" role="presentation"><a href="/?category={{cate.id}}">{{cate.name}}</a></li>
+                    {% else %}
+                    <li role="presentation"><a href="/?category={{cate.id}}">{{cate.name}}</a></li>
+                    {% endif %}
+
+                  {% endfor %}
+                </ul>
+
+                {% block content %}{% endblock %}
+            </div>
+            <div class="col-xs-12 col-md-3">
+              {% if userInfo._id  %}
+                <!-- 用户面板 start -->
+                <div id="admin" class="panel panel-primary">
+                  <div class="panel-heading">
+                    <h4>用户信息</h4>
+                  </div>
+                  <div class="panel-body">
+                      <h5 class="username"> {{  userInfo.username  }}</h5>
+                      {% if userInfo.isAdmin %}
+                          <p class="text-success">你好,管理员用户。<a href="/admin">进入管理</a></p>
+                      {% else %}
+                         <p class="text-success">你好,欢迎光临我的博客。</p>
+                      {% endif %}
+                      <p><a href="javascript:;" id="loginOut">退出</a></p>
+                  </div>
+                </div>
+                <!-- 用户面板 end -->
+              {% else %}
+              <!-- 登录 start -->
+              <div class="panel panel-primary" id="login">
+                <div class="panel-heading">
+                  <h4>登录</h4>
+                </div>
+                <div class="panel-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">姓名</label>
+                    <input name="username" type="text" class="form-control" id="exampleInputEmail1" placeholder="请输入姓名">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">密码</label>
+                    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="请输入密码">
+                  </div>
+                  <button type="submit" id="btn-login" class="btn btn-primary btn-block">登录</button>
+                  <p class="text-right">还未注册？<a href="javascript:;" class="showRegister">马上注册</a></p>
+                  <p class="text-center text-info" id="login_result"></p>
+                </div>
+              </div>
+              <!-- 登录 end -->
+              {% endif %}
+              <!-- 注册 start -->
+              <div id="register" class="panel panel-primary hide">
+                <div class="panel-heading">
+                  <h4>注册</h4>
+                </div>
+                <div class="panel-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">姓名</label>
+                    <input name="username" type="text" class="form-control" id="exampleInputEmail1" placeholder="请输入姓名">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">密码</label>
+                    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="请输入密码">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">确认密码</label>
+                    <input name="repassword" type="password" class="form-control" id="exampleInputPassword1" placeholder="请再次输入密码">
+                  </div>
+                  <button type="submit" id="btn-register" class="btn btn-primary btn-block">注册</button>
+                  <p class="text-right">已有账号？<a href="javascript:;" class="showLogin">马上登录</a></p>
+                  <p class="text-center text-info" id="result"></p>
+                </div>
+              </div>
+              <!-- 注册 end -->
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="/javascripts/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="/javascripts/bootstrap.min.js"></script>
+<script src="/javascripts/index.js"></script>

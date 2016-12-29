@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% for content in contents %}
+<div class="list">
+    <h3>{{ content.title }}</h3>
+    <p>
+        作者：<span>{{ content.user.username }}</span>
+        时间：<span>{{ content.addTime | date('Y年m月d日 H:i:s', -8*60) }}</span>
+        阅读：<span>{{ content.views }}</span>
+        评论：<span>10</span>
+    </p>
+    <p class="dec">{{content.dec}}</p>
+    <a href="/view/?contentid={{content.id}}" class="function">阅读全文</a>
+</div>
+{% endfor %}
+
+<div class="pages">
+    {% if page <= 1 %}
+    <span class="pl">没有上一页了</span>
+    {% else %}
+    <a href="/?category={{category}}&page={{page-1}}" class="pl">上一页</a>
+    {% endif %}
+    <p>{{page}}/{{maxNumber}}</p>
+
+    {% if page >= maxNumber %}
+    <span class="pr">没有下一页了</span>
+    {% else %}
+    <a href="/?category={{category}}&page={{page+1}}" class="pr">下一页</a>
+    {% endif %}
+
+</div>
+
+{% endblock %}
